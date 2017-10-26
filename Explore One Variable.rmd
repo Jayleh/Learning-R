@@ -1,12 +1,14 @@
-Lesson 3
-========================================================
+---
+title: "Explore One Variable"
+author: "Justin Le"
+date: "October 26, 2017"
+output: html_document
+---
 
-***
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-### What to Do First?
-Notes:
-
-***
 
 ### Pseudo-Facebook User Data
 Notes:
@@ -165,6 +167,7 @@ table(pf$gender)
 by(pf$friend_count, pf$gender, summary)
 ```
 
+
 #### Who on average has more friends: men or women?
 Response:
 
@@ -253,6 +256,7 @@ summary(log10(pf$friend_count + 1))
 summary(sqrt(pf$friend_count))
 ```
 
+
 ### Transforming Data Solution
 
 ```{r}
@@ -298,6 +302,7 @@ ggplot(aes(x = friend_count, y = ..count../sum(..count..)),
   ylab('Proportion of users with that friend count')
 ```
 
+
 ***
 
 ### Likes on the Web
@@ -317,7 +322,6 @@ ggplot(aes(x = www_likes), data = subset(pf, !is.na(gender))) +
   geom_freqpoly(aes(color = gender)) +
   scale_x_log10()
 ```
-
 
 ***
 
@@ -398,8 +402,3 @@ Response:
 
 ### Analyzing One Variable
 Reflection:
-
-***
-
-Click **KnitHTML** to see all of your hard work and to have an html
-page of this lesson, your answers, and your notes!
