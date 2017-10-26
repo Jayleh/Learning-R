@@ -75,7 +75,7 @@ ggplot(aes(x = dob_day), data = pf) +
   scale_x_continuous(breaks = 1:31)
 ```
 
-![](Explore_One_Variable_files/figure-html/Histogram of Users' Birthdays-1.png)<!-- -->
+![](Explore_One_Variable_files/figure-html/Histogram&#32;of&#32;Users'&#32;Birthdays-1.png)<!-- -->
 
 ***
 
