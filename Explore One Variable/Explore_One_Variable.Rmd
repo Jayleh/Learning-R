@@ -1,7 +1,7 @@
 ---
 title: "Explore One Variable"
 author: "Justin Le"
-date: "October 26, 2017"
+date: "`r format(Sys.Date())`"
 output: 
   html_document: 
     keep_md: yes
@@ -43,36 +43,6 @@ ggplot(aes(x = dob_day), data = pf) +
 
 ***
 
-#### What are some things that you notice about this histogram?
-Response:
-
-***
-
-### Moira's Investigation
-Notes:
-
-***
-
-### Estimating Your Audience Size
-Notes:
-
-***
-
-#### Think about a time when you posted a specific message or shared a photo on Facebook. What was it?
-Response:
-
-#### How many of your friends do you think saw that post?
-Response:
-
-#### Think about what percent of your friends on Facebook see any posts or comments that you make in a month. What percent do you think that is?
-Response:
-
-***
-
-### Perceived Audience Size
-Notes:
-
-***
 ### Faceting
 Notes:
 
@@ -83,25 +53,7 @@ ggplot(aes(x = dob_day), data = pf) +
   facet_wrap(~dob_month, ncol = 3)
 ```
 
-#### Let’s take another look at our plot. What stands out to you here?
-Response:
-
 ***
-
-### Be Skeptical - Outliers and Anomalies
-Notes:
-
-***
-
-### Moira's Outlier
-Notes:
-#### Which case do you think applies to Moira’s outlier?
-Response:
-
-***
-
-### Friend Count
-Notes:
 
 #### What code would you enter to create a histogram of friend counts?
 
@@ -111,9 +63,6 @@ Notes:
 ggplot(aes(x = friend_count), data = pf) +
   geom_histogram()
 ```
-
-#### How is this plot similar to Moira's first plot?
-Response:
 
 ***
 
@@ -129,15 +78,10 @@ ggplot(aes(x = friend_count), data = pf) +
   scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50))
 ```
 
-### Exploring with Bin Width
-Notes:
-
 ***
 
-### Adjusting the Bin Width
-Notes:
-
 ### Faceting Friend Count
+
 ```{r Faceting_Friend_Count}
 # What code would you add to create a facet the histogram by gender?
 # Add it to the code below.
@@ -168,7 +112,6 @@ Notes:
 table(pf$gender)
 by(pf$friend_count, pf$gender, summary)
 ```
-
 
 #### Who on average has more friends: men or women?
 Response:
@@ -221,19 +164,6 @@ ggplot(aes(x = age), data = pf) +
   scale_x_continuous(breaks = seq(0, 113, 5))
 ```
 
-#### What do you notice?
-Response:
-
-***
-
-### The Spread of Memes
-Notes:
-
-***
-
-### Lada's Money Bag Meme
-Notes:
-
 ***
 
 ### Transforming Data
@@ -257,7 +187,6 @@ summary(pf$friend_count)
 summary(log10(pf$friend_count + 1))
 summary(sqrt(pf$friend_count))
 ```
-
 
 ### Transforming Data Solution
 
@@ -303,7 +232,6 @@ ggplot(aes(x = friend_count, y = ..count../sum(..count..)),
   xlab('Friend Count') +
   ylab('Proportion of users with that friend count')
 ```
-
 
 ***
 
@@ -357,7 +285,7 @@ ggplot(aes(x = gender, y = friend_count),
 ### Box Plots, Quartiles, and Friendships
 Notes:
 
-```{r Box Plots,_Quartiles,_and_Friendships}
+```{r Box_Plots_Quartiles_and_Friendships}
 qplot(x = gender, y = friend_count,
       data = subset(pf, !is.na(gender)),
       geom = 'boxplot') +
@@ -368,8 +296,7 @@ by(pf$friend_count, pf$gender, summary)
 
 #### On average, who initiated more friendships in our sample: men or women?
 Response: women 
-#### Write about some ways that you can verify your answer.
-Response:
+
 ```{r Friend_Requests_by_Gender}
 ggplot(aes(x = gender, y = friendships_initiated),
        data = subset(pf, !is.na(gender))) +
@@ -398,6 +325,7 @@ summary(pf$mobile_check_in)
 
 sum(pf$mobile_check_in == 1)/length(pf$mobile_check_in)
 ```
+
 Response:
 
 ***
