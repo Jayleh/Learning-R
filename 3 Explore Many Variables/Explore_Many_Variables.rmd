@@ -1,14 +1,19 @@
-Lesson 5
-========================================================
+---
+title: "Explore Many Variables"
+author: "Justin Le"
+date: "October 26, 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
 
-### Multivariate Data
-Notes: Three or more variables
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'D:/Udacity Data Analysis with R/Lesson 5')
+```
 
-***
 
 ```{r}
-setwd("D:/Udacity Data Analysis with R/Lesson 5")
-
 library(ggplot2)
 library(gridExtra)
 library(dplyr)
@@ -27,7 +32,7 @@ Notes: Didn't really see, or it was hard to see
 ### Third Qualitative Variable
 Notes:
 
-```{r Third Qualitative Variable}
+```{r Third_Qualitative_Variable}
 ggplot(aes(x = gender, y = age),
        data = subset(pf, !is.na(gender))) + 
   geom_boxplot() +
@@ -80,7 +85,7 @@ Create a line graph showing the median friend count over the ages
 for each gender. Be sure to use the data frame you just created,
 pf.fc_by_age_gender.
 
-```{r Plotting Conditional Summaries}
+```{r Plotting_Conditional_Summaries}
 ggplot(aes(x = age, y = median_friend_count),
        data = pf.fc_by_age_gender) +
   geom_line(aes(color = gender))
@@ -138,7 +143,7 @@ The linetype parameter can take the values 0-6:
 3 = dotted, 4 = dotdash, 5 = longdash
 6 = twodash
 
-```{r Ratio Plot}
+```{r Ratio_Plot}
 ggplot(aes(x = age, y = female/male),
        data = pf.fc_by_age_gender.wide) +
   geom_line() +
@@ -160,7 +165,7 @@ tenure and 2014 as the reference year.
 
 The variable year_joined should contain the year that a user joined facebook.
 
-```{r Third Quantitative Variable}
+```{r Third_Quantitative_Variable}
 pf$year_joined <- floor(2014 - pf$tenure/365)
 
 head(pf)
@@ -170,7 +175,7 @@ head(pf)
 
 ### Cut a Variable
 
-```{r Cut a Variable}
+```{r Cut_a_Variable}
 summary(pf$year_joined)
 ```
 
@@ -213,7 +218,7 @@ binned our users into different groups.
 ### Plotting it All Together
 Notes: Table year_joined.bucket to see the distribution in each group.
 
-```{r Plotting it All Together}
+```{r Plotting_it_All_Together}
 table(pf$year_joined.bucket, useNA = 'ifany')
 ```
 
@@ -246,7 +251,7 @@ Write code to do the following:
 (2) Exclude any users whose year_joined.bucket is NA.
 (3) Use a different line type for the grand mean.
 
-```{r Plot the Grand Mean}
+```{r Plot_the_Grand_Mean}
 ggplot(aes(x = age, y = friend_count),
        data = subset(pf, !is.na(year_joined.bucket))) +
   geom_line(aes(color = year_joined.bucket),
@@ -265,7 +270,7 @@ we might increase our confidence isn't just an artifact of the time users have h
 friends. Looking at this relationship in another way. We can look at tenure and friend count as a rate.
 We can see how many friends does a user have for each day since they started using Facebook.
 
-```{r Friending Rate}
+```{r Friending_Rate}
 with(subset(pf, tenure >= 1), summary(friend_count/tenure))
 ```
 
@@ -280,7 +285,7 @@ Create a line graph of mean of friendships_initiated per day (of tenure) vs. ten
 You need to make use of the variables tenure, friendships_initiated, and year_joined.bucket. You also need to subset 
 the data to only consider user with at least one day of tenure.
 
-```{r Friendships Initiated}
+```{r Friendships_Initiated}
 ggplot(aes(x = tenure, y = friendships_initiated/tenure),
        data = subset(pf, tenure >= 1)) +
   geom_line(aes(color = year_joined.bucket),
@@ -309,7 +314,7 @@ then transforming back to the natural scale with the constant in front.
 
 Link: Bias-Variance Tradeoff http://scott.fortmann-roe.com/docs/BiasVariance.html
 
-```{r Bias-Variance Tradeoff Revisited}
+```{r Bias-Variance_Tradeoff_Revisited}
 
 ggplot(aes(x = tenure, y = friendships_initiated / tenure),
        data = subset(pf, tenure >= 1)) +
@@ -339,20 +344,10 @@ ggplot(aes(x = 90 * round(tenure / 90), y = friendships_initiated / tenure),
 
 ***
 
-### Sean's NFL Fan Sentiment Study
-Notes:
-
-***
-
-### Introducing the Yogurt Data Set
-Notes:
-
-***
-
 ### Histograms Revisited
 Notes:
 
-```{r Histograms Revisited}
+```{r Histograms_Revisited}
 yo <- read.csv('yogurt.csv')
 str(yo)
 
@@ -375,7 +370,7 @@ Notes: There are 20 distinct prices. By tabling we see the distribution like we 
 How to figure out on a given purchase occasion how many 8 oz yogurts does a household purchase?
 To answer this we need to combine accounts of the different yogurt flavors into one variable
 
-```{r Number of Purchases}
+```{r Number_of_Purchases}
 summary(yo)
 length(unique(yo$price))
 table(yo$price)
@@ -402,7 +397,7 @@ summary(yo$all.purchases)
 ### Prices over Time
 Notes:
 
-```{r Prices over Time}
+```{r Prices_over_Time}
 ggplot(aes(x = all.purchases), data = yo) +
   geom_histogram(binwidth = 1, fill = '#099DD9')
 ```
@@ -434,7 +429,7 @@ Notes: Using the set seed function to make it reproducible. Sampling from the le
 those are all the different households. We can plot each purchase occasion for each of the households
 that were sampled.
 
-```{r Looking at Sample of Households}
+```{r Looking_at_Sample_of_Households}
 set.seed(4230)
 sample.ids <- sample(levels(yo$id), 16)
 
@@ -450,7 +445,7 @@ to consider the number of items in terms of size of the point in the plot.
 
 Notes: x %in% y returns a logical (boolean) vector the same length as x that says whether each entry in x appears in y. That is, for each entry in x, it checks to see whether it is in y. This allows us to subset the data so we get all the purchases occasions for the households in the sample. Then, we create scatterplots of price vs. time and facet by the sample id. 
 
-```{r More Practice with another Sample}
+```{r More_Practice_with_another_Sample}
 set.seed(7529)
 sample.ids1 <- sample(levels(yo$id), 16)
 
@@ -526,13 +521,9 @@ ggplot(aes(y = gene, x = case, fill = value),
 
 ***
 
-### Analyzing Three of More Variables
+### Analyzing Three or More Variables
 Reflection: Simple extensions to the scatterplot and plots of conditional summaries, adding summaries
 for multiple groups. Tried some techniques for examining large number of variables at once such as
 scatter-plot matrices and heat maps. Also learned how to reshape data.
 
 ***
-
-Click **KnitHTML** to see all of your hard work and to have an html
-page of this lesson, your answers, and your notes!
-

@@ -1,7 +1,7 @@
 ---
 title: "Explore One Variable"
 author: "Justin Le"
-date: "`r format(Sys.Date())`"
+date: "October 26, 2017"
 output: 
   html_document: 
     keep_md: yes
@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'D:/Udacity Data Analysis with R/Lesson 3')
 ```
 
 
@@ -16,9 +17,6 @@ knitr::opts_chunk$set(echo = TRUE)
 Notes:
 
 ```{r Pseudo-Facebook_User_Data}
-getwd()
-setwd('D:/Udacity Data Analysis with R/Lesson 3')
-list.files()
 pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
 names(pf)
 ```
@@ -172,12 +170,12 @@ Notes:
 
 ### Create multiple plots on one page
 Notes: install.packages("gridExtra")
-  # define individual plots
+    define individual plots
     p1 = ggplot(...)
     p2 = ggplot(...)
     p3 = ggplot(...)
     p4 = ggplot(...)
-  # arrange plots in grid
+    arrange plots in grid
     grid.arrange(p1, p2, p3, p4, ncol=2)
     
 ```{r}
@@ -265,7 +263,7 @@ qplot(x = gender, y = friend_count,
 ```
 
 #### Adjust the code to focus on users who have friend counts between 0 and 1000.
-Notes:scale_x/y_continuous clips (removes unseen data points) outside of given range
+Notes: scale_x/y_continuous clips (removes unseen data points) outside of given range
 coord_cartesian (preferred) does not remove data points from calculations
 
 ```{r}

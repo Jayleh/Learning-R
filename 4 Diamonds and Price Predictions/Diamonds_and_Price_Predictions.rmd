@@ -1,14 +1,19 @@
-Lesson 6
-========================================================
+---
+title: "Diamonds_and_Price_Predictions"
+author: "Justin Le"
+date: "October 26, 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
 
-### Welcome
-Notes:
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'D:/Udacity Data Analysis with R/Lesson 6')
+```
 
-***
 
 ```{r}
-setwd("D:/Udacity Data Analysis with R/Lesson 6")
-
 library(ggplot2)
 library(gridExtra)
 data(diamonds)
@@ -29,7 +34,7 @@ Let's consider the price of a diamond and it's carat weight. Create a scatterplo
 
 Limit the x-axis and y-axis to omit the top 1% of values.
 
-```{r Scatterplot Review}
+```{r Scatterplot_Review}
 ggplot(aes(x = carat, y = price),
        data = diamonds) +
   geom_point(fill = I('#F79420'), color = I('black'), shape = 21, alpha = 1/4) +
@@ -53,10 +58,7 @@ as carat size increases.
 ***
 
 ### Frances Gerety
-Notes:
-
-#### A diamond is forever.
-
+Notes: A diamond is forever.
 
 ***
 
@@ -68,7 +70,7 @@ Notes:
 ### ggpairs Function
 Notes:
 
-```{r ggpairs Function}
+```{r ggpairs_Function}
 # load the ggplot graphics package and the others
 library(GGally)
 library(scales)
@@ -100,7 +102,7 @@ Create two histograms of the price variable and place them side by side on one o
 The first plot should be a histogram of price and the second plot should transform the price variable using log10.
 Set appropriate bin widths for each plot. ggtitle() will add a title to each histogram.
 
-```{r The Demand of Diamonds}
+```{r The_Demand_of_Diamonds}
 p1 <- ggplot(aes(x = price),
        data = diamonds) +
   geom_histogram(binwidth = 100, fill = I('#099DD9')) +
@@ -129,7 +131,7 @@ Notes:
 
 ### Scatterplot Transformation
 
-```{r Scatterplot Transformation}
+```{r Scatterplot_Transformation}
 ggplot(aes(x = carat, y = price),
        data = diamonds) +
   geom_point() +
@@ -137,14 +139,13 @@ ggplot(aes(x = carat, y = price),
   ggtitle('Prace (log10) scale by carat')
 ```
 
-
 ### Create a new function to transform the carat variable
 
 Link: https://www.youtube.com/watch?v=Z1wB1rHAYzQ&list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP
 
 Notes: Naming the function cuberoot_trans
 
-```{r cuberoot transformation}
+```{r cuberoot_transformation}
 cuberoot_trans = function() trans_new('cuberoot',
                                       transform = function(x) x^(1/3),
                                       inverse = function(x) x^3)
@@ -152,7 +153,7 @@ cuberoot_trans = function() trans_new('cuberoot',
 
 ### Use the cuberoot_trans function
 
-```{r Use cuberoot_trans}
+```{r Use_cuberoot_trans}
 ggplot(aes(carat, price), data = diamonds) + 
   geom_point() + 
   scale_x_continuous(trans = cuberoot_trans(), limits = c(0.2, 3),
@@ -168,7 +169,7 @@ Notes: Things look almost linear. We can move forward and see about modelling ou
 
 ### Overplotting Revisited
 
-```{r Sort and Head Tables}
+```{r Sort_and_Head_Tables}
 head(sort(table(diamonds$carat), decreasing = T))
 head(sort(table(diamonds$price), decreasing = T))
 ```
@@ -177,7 +178,7 @@ Notes: Ran the table command on carat and price and then sorted them from highes
 and price are count. We can see that these are really high numbers which is going to result in overplotting. So, we can
 jitter our points.
 
-```{r Overplotting Revisited}
+```{r Overplotting_Revisited}
 ggplot(aes(carat, price), data = diamonds) + 
   geom_point(alpha = 0.5, size = 0.85, position = 'jitter') + 
   scale_x_continuous(trans = cuberoot_trans(), limits = c(0.2, 3),
@@ -203,7 +204,7 @@ been added to adjust the legend and provide custom colors.
 
 Link: http://ggplot2.tidyverse.org/reference/scale_brewer.html
 
-```{r Price vs. Carat and Clarity}
+```{r Price_vs_Carat_and_Clarity}
 # load the RColorBrewer package
 library(RColorBrewer)
 
@@ -234,7 +235,7 @@ Response:
 ### Price vs. Carat and Cut
 
 Alter the code below.
-```{r Price vs. Carat and Cut}
+```{r Price_vs_Carat_and_Cut}
 ggplot(aes(x = carat, y = price, color = cut), data = diamonds) + 
   geom_point(alpha = 0.5, size = 1, position = 'jitter') +
   scale_color_brewer(type = 'div',
@@ -262,7 +263,7 @@ Response:
 ### Price vs. Carat and Color
 
 Alter the code below.
-```{r Price vs. Carat and Color}
+```{r Price_vs_Carat_and_Color}
 ggplot(aes(x = carat, y = price, color = color), data = diamonds) + 
   geom_point(alpha = 0.5, size = 1, position = 'jitter') +
   scale_color_brewer(type = 'div',
@@ -289,17 +290,14 @@ Response:
 ### Linear Models in R
 Notes: Price is the outcome variable and carat is the predictor variable. 
 
-Response:
-
 ***
 
 ### Building the Linear Model
 Notes: Used the I wrapper, standing for 'as is'. Tells R to transform the variable before using it in the regression.
 
-
 Link: http://data.princeton.edu/R/linearModels.html
 
-```{r Building the Linear Model}
+```{r Building_the_Linear_Model}
 m1 <- lm(I(log(price)) ~ I(carat^(1/3)), data = diamonds)
 m2 <- update(m1, ~ . + carat)
 m3 <- update(m2, ~ . + cut)
@@ -329,14 +327,12 @@ Research:
 (Take some time to come up with 2-4 problems for the model)
 (You should 10-20 min on this)
 
-Response:
-
 ***
 
 ### A Bigger, Better Data Set
 Notes:
 
-```{r A Bigger, Better Data Set}
+```{r A_Bigger_Better_Data_Set}
 library('bitops')
 library('RCurl')
 
@@ -348,8 +344,7 @@ diamondsbig <- read.csv('diamondsbig.csv')
 The code used to obtain the data is available here:
 https://github.com/solomonm/diamonds-data
 
-## Building a Model Using the Big Diamonds Data Set
-Notes:
+### Building a Model Using the Big Diamonds Data Set
 
 Your task is to build five linear models like Solomon did for the diamonds data set only this
 me you'll use a sample of diamonds from the diamondsbig data set.
@@ -362,7 +357,7 @@ code in the Instructor Notes. There's 598,024 diamonds in this data set!
 Since the data set is so large, you are going to use a sample of the data set to compute the models. You can use
 the entire data set on your machine which will produce slightly different coefficients and statistics for the models.
 
-```{r Building a Model Using the Big Diamonds Data Set}
+```{r Building_a_Model_Using_the_Big_Diamonds_Data_Set}
 diamondsbig$logprice <- log(diamondsbig$price)
 m1 <- lm(logprice ~ I(carat^(1/3)),
          data = diamondsbig[diamondsbig$price < 10000 &
@@ -401,7 +396,3 @@ Evaluate how well the model predicts the BlueNile diamond's price. Think about t
 Notes:
 
 ***
-
-Click **KnitHTML** to see all of your hard work and to have an html
-page of this lesson, your answers, and your notes!
-
