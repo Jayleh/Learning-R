@@ -1,4 +1,4 @@
 src/main/resources/static/* linguist-vendored
 project-docs/* linguist-documentation
-*.rb linguist-language=R
-
+*.md linguist-language=R
+*.Rmd linguist-language=R
